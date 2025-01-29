@@ -24,7 +24,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-  <title>Academic Project Page</title>
+  <title>Conditional Diffusion Models as Medical Image Classifiers</title>
   <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
   rel="stylesheet">
@@ -52,7 +52,7 @@
       <div class="container is-max-desktop">
         <div class="columns is-centered">
           <div class="column has-text-centered">
-            <h1 class="title is-1 publication-title">Academic Project Page</h1>
+            <h1 class="title is-1 publication-title">Conditional Diffusion Models are Explainable, Uncertainty-Estimating Medical Image Classifiers</h1>
             <div class="is-size-5 publication-authors">
               <!-- Paper authors -->
               <span class="author-block">
@@ -85,17 +85,6 @@
                       </a>
                     </span>
 
-                    <!-- Supplementary PDF link -->
-                    <span class="link-block">
-                      <a href="static/pdfs/supplementary_material.pdf" target="_blank"
-                      class="external-link button is-normal is-rounded is-dark">
-                      <span class="icon">
-                        <i class="fas fa-file-pdf"></i>
-                      </span>
-                      <span>Supplementary</span>
-                    </a>
-                  </span>
-
                   <!-- Github link -->
                   <span class="link-block">
                     <a href="https://github.com/YOUR REPO HERE" target="_blank"
@@ -126,24 +115,28 @@
 </section>
 
 
-<!-- Teaser video-->
+<!-- Teaser image-->
 <section class="hero teaser">
   <div class="container is-max-desktop">
-    <div class="hero-body">
-      <video poster="" id="tree" autoplay controls muted loop height="100%">
-        <!-- Your video here -->
-        <source src="static/videos/banner_video.mp4"
-        type="video/mp4">
-      </video>
-      <h2 class="subtitle has-text-centered">
-        Aliquam vitae elit ullamcorper tellus egestas pellentesque. Ut lacus tellus, maximus vel lectus at, placerat pretium mi. Maecenas dignissim tincidunt vestibulum. Sed consequat hendrerit nisl ut maximus. 
-      </h2>
+    <div class="hero-body has-text-justified">
+      <img src="static/images/architecture.png" alt="Architecture"/>
+      <div class="subtitle">
+        <p>
+          <strong>Diffusion classifiers</strong> extract implicit classifiers from conditional diffusion models. First, a sample, 
+          \( \boldsymbol{x} \), is noised at a randomly chosen noise level, \( (\boldsymbol{\epsilon}_k, \lambda_k) \). The noised 
+          sample is then denoised by the diffusion network with each possible conditioning input, \( c_j \). The conditioning 
+          variable, \( c_j \), that results in the denoised output, 
+          \( \hat{\boldsymbol{x}}_\theta (\boldsymbol{z}_\lambda, c_j) \), with the smallest reconstruction error is selected as the 
+          class. This process is repeated for a set of \( N \) noise levels \( (\boldsymbol{\epsilon}, \lambda) \) with the 
+          reconstruction errors aggregated (e.g., average/majority voting) for a more accurate prediction.
+        </p>
+      </div>
     </div>
   </div>
 </section>
-<!-- End teaser video -->
+<!-- End teaser image -->
 
-<!-- Paper abstract -->
+<!-- Paper Abstract -->
 <section class="section hero is-light">
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
@@ -151,131 +144,89 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ullamcorper tellus sed ante aliquam tempus. Etiam porttitor urna feugiat nibh elementum, et tempor dolor mattis. Donec accumsan enim augue, a vulputate nisi sodales sit amet. Proin bibendum ex eget mauris cursus euismod nec et nibh. Maecenas ac gravida ante, nec cursus dui. Vivamus purus nibh, placerat ac purus eget, sagittis vestibulum metus. Sed vestibulum bibendum lectus gravida commodo. Pellentesque auctor leo vitae sagittis suscipit.
+            Discriminative classifiers have become a foundational tool in deep learning for medical imaging, excelling at learning separable features of complex data distributions. However, these models often need careful design, augmentation, and training techniques to ensure safe and reliable deployment. Recently diffusion models have become synonymous with generative modeling in 2D, where they showcase robustness across a range of tasks including natural image classification. This work presents the first exploration of the potential of class conditional diffusion models for 2D medical image classification. First, we develop a novel majority voting scheme shown to improve the performance of diffusion classifiers in medical imaging. Next, extensive experiments on the CheXpert and ISIC Melanoma skin cancer datasets demonstrate that foundation and trained-from-scratch diffusion models achieve competitive performance against SOTA discriminative classifiers without the need for explicit supervision. In addition, we show that the classifiers are intrinsically explainable, and can be used to quantify the uncertainty of the predictions, increasing their trustworthiness and reliability in safety-critical, clinical contexts.
           </p>
         </div>
       </div>
     </div>
   </div>
 </section>
-<!-- End paper abstract -->
 
-
-<!-- Image carousel -->
-<section class="hero is-small">
-  <div class="hero-body">
-    <div class="container">
-      <div id="results-carousel" class="carousel results-carousel">
-       <div class="item">
-        <!-- Your image here -->
-        <img src="static/images/carousel1.jpg" alt="MY ALT TEXT"/>
-        <h2 class="subtitle has-text-centered">
-          First image description.
-        </h2>
+<!-- Novel Majority Voting Algorithm -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-vcentered">
+      <div class="column is-half">
+        <h2 class="title is-3">Novel Majority Voting Algorithm</h2>
+        <p>
+          We propose a simple but effective majority voting scheme that, instead of cumulating errors at each timestep, tallies the amount of times a reconstruction error was smaller for each test condition and then chooses the class with the most votes. Using a majority voting scheme increases classification performance across the board, and specifically so at larger values of $N$. This result is intuitive; at greater values of $N$ there are more reconstructions attempted from high noise disturbance which can introduce large sources of variance in an average error scheme. Results here are shown for the CheXpert classification task.
+        </p>
       </div>
-      <div class="item">
-        <!-- Your image here -->
-        <img src="static/images/carousel2.jpg" alt="MY ALT TEXT"/>
-        <h2 class="subtitle has-text-centered">
-          Second image description.
-        </h2>
-      </div>
-      <div class="item">
-        <!-- Your image here -->
-        <img src="static/images/carousel3.jpg" alt="MY ALT TEXT"/>
-        <h2 class="subtitle has-text-centered">
-         Third image description.
-       </h2>
-     </div>
-     <div class="item">
-      <!-- Your image here -->
-      <img src="static/images/carousel4.jpg" alt="MY ALT TEXT"/>
-      <h2 class="subtitle has-text-centered">
-        Fourth image description.
-      </h2>
-    </div>
-  </div>
-</div>
-</div>
-</section>
-<!-- End image carousel -->
-
-
-
-
-<!-- Youtube video -->
-<section class="hero is-small is-light">
-  <div class="hero-body">
-    <div class="container">
-      <!-- Paper video. -->
-      <h2 class="title is-3">Video Presentation</h2>
-      <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
-          
-          <div class="publication-video">
-            <!-- Youtube embed code here -->
-            <iframe src="https://www.youtube.com/embed/JkaxUblCGz0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-          </div>
-        </div>
+      <div class="column is-half">
+        <figure class="image is-centered">
+          <img src="static/images/chexpert-step-ablation.png" alt="Majority Voting Algorithm">
+        </figure>
       </div>
     </div>
   </div>
 </section>
-<!-- End youtube video -->
 
-
-<!-- Video carousel -->
-<section class="hero is-small">
-  <div class="hero-body">
-    <div class="container">
-      <h2 class="title is-3">Another Carousel</h2>
-      <div id="results-carousel" class="carousel results-carousel">
-        <div class="item item-video1">
-          <video poster="" id="video1" autoplay controls muted loop height="100%">
-            <!-- Your video file here -->
-            <source src="static/videos/carousel1.mp4"
-            type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-video2">
-          <video poster="" id="video2" autoplay controls muted loop height="100%">
-            <!-- Your video file here -->
-            <source src="static/videos/carousel2.mp4"
-            type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-video3">
-          <video poster="" id="video3" autoplay controls muted loop height="100%">\
-            <!-- Your video file here -->
-            <source src="static/videos/carousel3.mp4"
-            type="video/mp4">
-          </video>
-        </div>
+<!-- Performance vs SOTA -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-vcentered">
+      <div class="column is-half">
+        <figure class="image is-centered">
+          <img src="static/images/classification-table.png" alt="Performance Comparison">
+        </figure>
+      </div>
+      <div class="column is-half">
+        <h2 class="title is-3">Competitive vs. SOTA Discriminative Classifiers</h2>
+        <p>
+          Our experiments on the CheXpert and ISIC Melanoma skin cancer datasets demonstrate that foundation and trained-from-scratch diffusion models achieve competitive performance against SOTA discriminative classifiers. Notably, diffusion classifiers achieve this performance with minimal hyperparameter tuning, no augmentations, and without being trained on a classification objective. $^*$ and $^\dagger$ denote fine-tuned and zero-shot versions, respectively. Diffusion classifier results are with 501 classification steps, and a majority vote.
+        </p>
       </div>
     </div>
   </div>
 </section>
-<!-- End video carousel -->
 
-
-
-
-
-
-<!-- Paper poster -->
-<section class="hero is-small is-light">
-  <div class="hero-body">
-    <div class="container">
-      <h2 class="title">Poster</h2>
-
-      <iframe  src="static/pdfs/sample.pdf" width="100%" height="550">
-          </iframe>
-        
+<!-- Intrinsic Explainability -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-vcentered">
+      <div class="column is-half">
+        <h2 class="title is-3">Intrinsic Explainability</h2>
+        <p>
+          Importantly, diffusion classifiers are able to produce counterfactual explanations, as opposed to other interpretability methods that simply highlight regions of interest. The counterfactual image of a sick patient shows decreased disease pathology in the left and right lungs, while the factual reconstruction shows minimal differences. The natural interpretability of diffusion classifiers provides both transparency on how the model is learning (thus allowing the identification of shortcut learning), and specific class information which improves understanding of disease.
+        </p>
+      </div>
+      <div class="column is-half">
+        <figure class="image is-centered">
+          <img src="static/images/explainability.png" alt="Explainability Visualization">
+        </figure>
       </div>
     </div>
-  </section>
-<!--End paper poster -->
+  </div>
+</section>
 
+<!-- Uncertainty Quantification -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-vcentered">
+      <div class="column is-half">
+        <figure class="image is-centered">
+          <img src="static/images/uncertainty.png" alt="Uncertainty Quantification">
+        </figure>
+      </div>
+      <div class="column is-half">
+        <h2 class="title is-3">Uncertainty Quantification</h2>
+        <p>
+          In medical imaging, uncertainty measures are validated by confirming that when the model is confident, the prediction is correct, and when it is uncertain, it is incorrect. We therefore validate the diffusion model's uncertainty quantification by filtering out the most uncertain predictions and examining the change in performance.Each of the models show accuracy increases as the most uncertain predictions are filtered out for CheXpert (- -) and ISIC (-). This indicates that these models are most uncertain about their incorrect predictions, which confirms the effectiveness of their uncertainty measure and high value across medical applications.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!--BibTex citation -->
   <section class="section" id="BibTeX">
@@ -285,7 +236,6 @@
     </div>
 </section>
 <!--End BibTex citation -->
-
 
   <footer class="footer">
   <div class="container">
@@ -304,6 +254,20 @@
     </div>
   </div>
 </footer>
+
+<!-- Add MathJax for LaTeX rendering -->
+<script>
+  MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']]
+    },
+    svg: {
+      fontCache: 'global'
+    }
+  };
+</script>
+<script async src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script async id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
 <!-- Statcounter tracking code -->
   
